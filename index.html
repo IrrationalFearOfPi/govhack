@@ -3,7 +3,7 @@
 <meta name="generator" content=
 "HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/c63cc39">
 
-  <title>Irrational Fear of &pi;</title>
+  <title>Irrational Fear of π</title>
   <meta name="viewport" content=
   "width=device-width, initial-scale=1.0"><!-- Bootstrap -->
   <link href=
@@ -13,7 +13,7 @@
 
 <div class="row-fluid">
     <div id="title" class="span12">
-      <h1>GovHack 2013 - Irrational Fear of &pi;</h1>
+      <h1>GovHack 2013 - Irrational Fear of π</h1>
     </div>
 
     <div class="container-fluid">
@@ -29,7 +29,102 @@
         </div>
 
         <div id="body" class="span10">
-          <!-- CALLUM PASTES SHIT HERE!  -->
+          <script type="text/javascript" src=
+          "http://static.fearofpi.strangled.net/js/d3.v3.min.js">
+</script> <script src=
+"http://static.fearofpi.strangled.net/js/topojson.v0.min.js">
+</script> <script>
+var width = 960;
+          var height = 600;
+
+          var projection = d3.geo.mercator()
+          .center([-50, -25. ])
+          .scale(900)
+          .rotate([-180,0]);
+
+          var svg = d3.select("body").append("svg")
+          .attr("width", width)
+          .attr("height", height);
+
+          var path = d3.geo.path()
+          .projection(projection);
+
+          var suburbs = svg.append("g")
+                        .attr("id", "suburb");
+
+          var cake = {
+          tree: "fire",
+          foo: "bar",
+          head: {eye: "knife",
+                        blood: "harg",
+                        }       
+          }
+          //alert(cake.toSource());               
+
+          d3.json("http://static.fearofpi.strangled.net/data/postalAreasTopo.json", function(error, topology) {
+          d3.csv("http://static.fearofpi.strangled.net/data/seifa.csv", function(error, data) {
+                //console.log(topojson.object(topology,topology.objects.postalAreas).geometrie  `s);
+                
+                var counterpos = 0;     
+                suburbs.selectAll("path")
+                .data(topojson.object(topology, topology.objects.postalAreas)
+                .geometries)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("id", function(d,i) {return topology.objects.postalAreas.geometries[i].id;}).attr("class", data ? function(d,i){
+                //console.log(data[i].SSC_DECILE);
+                /*if (topology.objects.postalAreas.geometries[i].id == data[i].SSC_CODE) {
+                        //console.log("cake");
+                        return "decile" + data[i].SSC_DECILE;
+                } else {
+                        console.log(counterpos);
+                        
+                        for (var c=counterpos;c<data.length;c++) {
+                                console.log("larg");
+                                console.log(topology.objects.postalAreas.geometries[i].id + " " + data[c].SSC_CODE);
+                                if (topology.objects.postalAreas.geometries[i].id == data[c].SSC_CODE) {
+                                        console.log("cakenow");
+                                        return "decile" + data[c].SSC_DECILE;
+                                        counterpos = c;
+                                        break;
+                                  }
+                        console.log("nope");
+                        }
+                        
+                        
+                }*/
+                return "decile" + data[i].SSC_DECILE;
+                        } : null 
+                /*function(d,i) {
+                        alert(new String("Abbotsbury"));
+                        alert("cake".toSource())
+                        //console.log(data[i].SSC_NAME);
+                        return i;
+                }*/
+                );
+          })/*.get(function(error, rows) { console.log(rows)*/; 
+          });
+          // load and display the World
+          /*d3.json("../json/world-110m2.json", function(error, topology) {
+
+          console.log(topojson.object(topology, topology.objects.countries).geometries);
+          suburbs.selectAll("path")
+          .data(topojson.object(topology, topology.objects.countries)
+          .geometries)
+          .enter()
+          .append("path")
+          .attr("d", path)
+          });*/
+          var zoom = d3.behavior.zoom()
+          .on("zoom",function() {
+          suburbs.attr("transform","translate("+ 
+            d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+          suburbs.selectAll("path")  
+            .attr("d", path); 
+          });
+          svg.call(zoom)
+          </script>
         </div>
       </div>
     </div>
