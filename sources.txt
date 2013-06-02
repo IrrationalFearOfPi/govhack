@@ -1,0 +1,8 @@
+Suburb boundaries 
+http://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/2C6132C0B332C336CA2578D40012CF76?opendocument
+
+Socio-Economic Indexes
+http://www.abs.gov.au/AUSSTATS/abs@.nsf/Lookup/2033.0.55.001Main+Features12011?OpenDocument
+
+Bus stops/routes
+http://data.sa.gov.au/dataset/transit-feed-specification
