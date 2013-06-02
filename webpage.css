@@ -21,6 +21,7 @@
 }
 
 #sidebar {
+	float: left;
 }
 path {
   stroke: white;
